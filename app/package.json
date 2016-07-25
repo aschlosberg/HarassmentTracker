@@ -1,0 +1,25 @@
+{
+  "name": "harassmentTracker",
+  "version": "0.0.1",
+  "description": "See README",
+  "repository": "https://github.com/aschlosberg/HarassmentTracker",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arran Schlosberg<me@arranschlosberg.com>",
+  "license": "MIT",
+  "dependencies": {
+    "angular-ui-bootstrap": "^2.0.0",
+    "angular-ui-router": "^0.3.1",
+    "angularjs": "0.0.1",
+    "bootstrap": "^3.3.6",
+    "jquery": "^3.1.0",
+    "moment": "^2.14.1"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "minifyify": "^7.3.3",
+    "tsify": "^1.0.1"
+  }
+}
