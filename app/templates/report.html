@@ -1,0 +1,51 @@
+<div ng-show="report.step==0">
+    <div class="row">
+        <div class="col-xs-12" style="height: 600px">
+            <div id="reportMap" style="height: 600px"></div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<div ng-show="report.step==0" class="row">
+    <div class="col-xs-12 text-center">
+        <h1>
+            <small>I was harassed</small>
+            <button class="btn btn-default" ng-click="report.setLocation(true)">exactly here</button>
+            <button class="btn btn-default" ng-click="report.setLocation(false)">somewhere nearby</button>
+        </h1>
+    </div>
+</div>
+
+<div ng-show="report.step==1">
+    <div class="row">
+        <h1 class="col-xs'12 text-center">
+            <small>&hellip; and it occurred {{report.when()}}.</small>
+        </h1>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-6">
+            <div uib-timepicker ng-model="report.incident.time" show-meridian="false" class="pull-right"></div>
+        </div>
+        <div class="col-xs-6">
+            <div uib-datepicker ng-model="report.incident.date" class="well well-sm pull-left" datepicker-options="report.dateOptions"></div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="report.step>0">
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-default" ng-click="report.back()">&laquo; Back</button>
+            <span ng-show="report.step < report.totalSteps">
+                <button class="btn btn-primary" ng-click="report.nextStep()">{{report.step==(report.totalSteps-1) ? 'Almost there&hellip;' : 'Tell us more about what happened'}}</button>
+                <button class="btn btn-default" ng-click="report.skipToEnd()">I'd rather not elaborate</button>
+            </span>
+            <span ng-show="report.step >= report.totalSteps">
+                <button class="btn btn-primary" ng-click="report.submit()">This is correct, share this information</button>
+            </span>
+        </div>
+    </div>
+</div>
