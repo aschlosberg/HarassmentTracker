@@ -10,6 +10,9 @@ angular.module('harassment',[
     'ui.bootstrap'
 ])
     .config(require('./routes'))
+    .constant('IncidentTagLabels', require('./IncidentTagLabels'))
+    .constant('GoogleMapsAPIKey', 'AIzaSyDyJQZcqHIBHZjYEED-1-8MQaQlZ0qPyeM')
+    .filter('niceDate', require('./niceDateFilter'))
     .factory('IncidentService', require('./IncidentService'))
     .run(require('./run'));
 

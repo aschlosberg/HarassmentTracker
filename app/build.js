@@ -36,7 +36,7 @@ for(var e in external){
 }
 app
     .plugin('tsify')
-//    .plugin('minifyify', {map: mapFile, output: mapFile})
+    .plugin('minifyify', {map: mapFile, output: mapFile})
     .bundle()
     .on('error', function (error) { console.error(error.toString()); })
     .pipe(fs.createWriteStream(outFile, 'utf8'));

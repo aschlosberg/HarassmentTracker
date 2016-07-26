@@ -23,44 +23,34 @@ export interface ReportController {
     totalSteps: number;
     incident: incident;
     dateOptions: any;
-    when: () => string;
+    tagLabels: IncidentTagGroups<IncidentTagLabels>;
+    toggleTag: (grp: string, idx: number) => void;
+    tagStatus: (grp: string, idx: number) => boolean;
+    mapIframeSrc: () => any; // get a $sce trusted URL
 }
 
 export interface incident {
+    multipleVictims: boolean;
     coords: coords;
     date: Date; // angular-ui-bootstrap states that date and time pickers MUST use different objects
     time: Date;
+    tags: IncidentTagGroups<IncidentTagStatus>;
+    desc?: string;
 }
 
 export interface coords {
     lat: number;
     lng: number;
+    zoom: number;
     exact: boolean;
 }
 
-//
-// interface uiMapCoords {
-//     lat: number;
-//     lng: number;
-// }
-//
-// interface uiMapMarkerOptions {
-//     draggable: boolean;
-//     animation: any;
-// }
-//
-// interface uiMapMarker {
-//     coords: uiMapCoords;
-//     id: string;
-//     options?: uiMapMarkerOptions;
-// }
-//
-// interface uiMap {
-//     center: uiMapCoords;
-//     zoom: number;
-//     marker?: uiMapMarker;
-// }
-//
-// interface reportControllerObj {
-//     map: uiMap;
-// }
+export interface IncidentTagGroups<T> {
+    nature: T;
+    motivation: T;
+    [index: string]: T;
+}
+
+export interface IncidentTagLabels extends Array<string> {}
+
+export interface IncidentTagStatus extends Array<number> {}
