@@ -13,6 +13,7 @@ angular.module('harassment',[
     .constant('IncidentTagLabels', require('./IncidentTagLabels'))
     .constant('GoogleMapsAPIKey', 'AIzaSyDyJQZcqHIBHZjYEED-1-8MQaQlZ0qPyeM')
     .filter('niceDate', require('./niceDateFilter'))
+    .filter('commaListedTags', require('./commaListedTagsFilter'))
     .factory('IncidentService', require('./IncidentService'))
     .run(require('./run'));
 

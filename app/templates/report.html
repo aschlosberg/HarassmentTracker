@@ -7,7 +7,7 @@
     <hr />
 </div>
 
-<div ng-show="report.step==0" class="row">
+<div ng-if="report.step==0" class="row">
     <div class="col-xs-12 text-center">
         <h1 class="form-inline">
             <select class="form-control" ng-model="report.incident.multipleVictims" ng-options="o.val as o.lbl for o in [{val: false, lbl: 'I'}, {val: true, lbl: 'We'}]"></select>
@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div ng-show="report.step==1">
+<div ng-if="report.step==1">
     <div class="row">
         <h1 class="col-xs'12 text-center">
             <small>&hellip; and it occurred at {{report.incident | niceDate}}.</small>
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<div ng-show="report.step==2">
+<div ng-if="report.step==2">
     <div class="row" ng-repeat-start="(grp, list) in report.tagLabels">
         <h1 class="col-xs-12">
             <small>{{{nature: (report.incident.multipleVictims ? 'We were' : 'I was'), motivation: 'The harassment was'}[grp]}}</small>
@@ -53,10 +53,18 @@
     </div>
 </div>
 
-<div ng-show="report.step==report.totalSteps">
+<div ng-if="report.step==report.totalSteps">
     <div class="row">
-        <h1 class="col-xs-12 text-center">
-            <small>At {{report.incident | niceDate}} {{report.incident.multipleVictims ? 'we were' : 'I was'}} harassed {{report.incident.coords.exact ? 'at' : 'somewhere near'}} this location:</small>
+        <h1 class="col-xs-6 col-xs-offset-3 text-center">
+            <small>
+                At {{report.incident | niceDate}}
+                {{report.incident.multipleVictims ? 'we were' : 'I was'}}
+                <span ng-show="report.incident.tags.nature.length">{{report.incident.tags.nature | commaListedTags: report.tagLabels.nature}}</span>
+                <span ng-hide="report.incident.tags.nature.length">harassed</span>
+                <span ng-show="report.incident.tags.motivation.length">for {{report.incident.tags.motivation | commaListedTags: report.tagLabels.motivation}} reasons</span>
+                {{report.incident.coords.exact ? 'at' : 'somewhere near'}}
+                this location.
+            </small>
         </h1>
     </div>
     <div class="row text-center">
@@ -72,7 +80,7 @@
     </div>
 </div>
 
-<div ng-show="report.step>0">
+<div ng-if="report.step>0">
     <hr />
     <div class="row">
         <div class="col-xs-12 text-center">
