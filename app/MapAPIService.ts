@@ -3,14 +3,14 @@
 
 import h = require('./harassment');
 
-function IncidentService($rootScope: ng.IScope): h.IncidentService {
+function MapAPIService($rootScope: ng.IScope): h.MapAPIService {
     var _init: boolean = false;
 
-    var srv: h.IncidentService = {
+    var srv: h.MapAPIService = {
         init: (): void => {
-            console.info('Incident service intialised');
+            console.info('Map API service intialised');
             _init = true;
-            $rootScope.$emit('incidentServiceInit');
+            $rootScope.$broadcast('MapAPIServiceInit');
         },
         isInit: (): boolean => {
             return _init;
@@ -20,6 +20,6 @@ function IncidentService($rootScope: ng.IScope): h.IncidentService {
     return srv;
 }
 
-IncidentService.$inject = ['$rootScope'];
+MapAPIService.$inject = ['$rootScope'];
 
-export = IncidentService;
+export = MapAPIService;

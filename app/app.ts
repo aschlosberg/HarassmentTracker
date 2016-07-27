@@ -11,10 +11,12 @@ angular.module('harassment',[
 ])
     .config(require('./routes'))
     .constant('IncidentTagLabels', require('./IncidentTagLabels'))
-    .constant('GoogleMapsAPIKey', 'AIzaSyDyJQZcqHIBHZjYEED-1-8MQaQlZ0qPyeM')
+    .constant('GoogleMapsAPIKey', 'AIzaSyDyJQZcqHIBHZjYEED-1-8MQaQlZ0qPyeM') // client-side key so no way to store it in ENV and no point in excluding it from the repo
     .filter('niceDate', require('./niceDateFilter'))
     .filter('commaListedTags', require('./commaListedTagsFilter'))
-    .factory('IncidentService', require('./IncidentService'))
+    .factory('MapAPIService', require('./MapAPIService'))
     .run(require('./run'));
 
-angular.bootstrap(document, ['harassment'], { strictDi: true });
+angular.element(document).ready(() => { // although we use 'defer' in the script tag, include this for browsers that don't support it
+    angular.bootstrap(document, ['harassment'], { strictDi: true });
+});

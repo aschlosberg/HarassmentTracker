@@ -1,4 +1,4 @@
-export interface IncidentService {
+export interface MapAPIService {
     init: () => void;
     isInit: () => boolean;
 }

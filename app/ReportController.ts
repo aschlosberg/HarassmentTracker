@@ -7,7 +7,7 @@ import h = require('./harassment');
 
 declare var google: any;
 
-function reportController($scope: ng.IScope, IncidentService: h.IncidentService, IncidentTagLabels: h.IncidentTagGroups<h.IncidentTagLabels>, $sce: ng.ISCEService, GoogleMapsAPIKey: string) {
+function reportController($scope: ng.IScope, MapAPIService: h.MapAPIService, IncidentTagLabels: h.IncidentTagGroups<h.IncidentTagLabels>, $sce: ng.ISCEService, GoogleMapsAPIKey: string) {
     var map: any;
     var ctrl = <h.ReportController> this;
 
@@ -111,7 +111,7 @@ function reportController($scope: ng.IScope, IncidentService: h.IncidentService,
         console.info('Submitting report to be saved');
     };
 
-    // Initialise the map either immediately if possible otherwise wait for the incidentServiceInit event to be emitted
+    // Initialise the map either immediately if possible otherwise wait for the MapAPIServiceInit event to be emitted
     var mapBuilt: boolean = false;
     var buildMap = (): void => {
         if(mapBuilt){
@@ -153,12 +153,19 @@ function reportController($scope: ng.IScope, IncidentService: h.IncidentService,
         }
     }
 
-    if(IncidentService.isInit()){
+    if(MapAPIService.isInit()){
+        console.info('ReportController building map immediately');
         buildMap();
     }
-    $scope.$on('incidentServiceInit', buildMap);
+    else {
+        console.info('Waiting for MapAPIServiceInit before building')
+        $scope.$on('MapAPIServiceInit', (): void => {
+            console.info('ReportController building map due to MapAPIServiceInit event');
+            buildMap();
+        });
+    }
 }
 
-reportController.$inject = ['$scope', 'IncidentService', 'IncidentTagLabels', '$sce', 'GoogleMapsAPIKey'];
+reportController.$inject = ['$scope', 'MapAPIService', 'IncidentTagLabels', '$sce', 'GoogleMapsAPIKey'];
 
 export = reportController;
