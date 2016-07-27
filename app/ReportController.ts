@@ -3,6 +3,7 @@
 
 var angular = require('angular');
 var _ = require('underscore');
+var sjcl = require('sjcl');
 import h = require('./harassment');
 
 declare var google: any;
@@ -108,6 +109,20 @@ function reportController($scope: ng.IScope, MapAPIService: h.MapAPIService, Inc
     };
 
     ctrl.submit = (): void => {
+        var key: string = 'HarassmentTrackerUniqId';
+        if(!((key in localStorage) && localStorage[key].length==64)){
+            console.info('Creating new unique ID');
+            var parts: number[] = [
+                (new Date()).getTime(),
+                Math.random()
+            ];
+            console.info(parts);
+            var rand: string = _.map(parts, (val: number): string => { return val.toString(); }).join('|');
+            console.debug(rand);
+            var bits: any = sjcl.hash.sha256.hash(rand);
+            localStorage[key] = sjcl.codec.hex.fromBits(bits); // really no need to hash but it provides a clean hex string for which we can test the length as an indicator of proper creation
+        }
+        console.info(localStorage[key]);
         console.info('Submitting report to be saved');
     };
 
